@@ -11,7 +11,12 @@ An end-to-end Retrieval-Augmented Generation (RAG) application that serves as an
 
 [![Academic Tutor Assistant Demo](https://kumartutor.com/wp-content/uploads/2024/09/10001.gif)](./edrag_demo.mp4)
 
-<video src="./assets/edrag_demo.mp4" controls width="600">
+<!-- <video src="./assets/edrag_demo.mp4" controls width="600">
+  Your browser does not support the video tag.
+</video> -->
+<video src="https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing" 
+       controls 
+       width="600">
   Your browser does not support the video tag.
 </video>
 
