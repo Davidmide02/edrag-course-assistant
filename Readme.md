@@ -7,7 +7,7 @@
 
 An end-to-end Retrieval-Augmented Generation (RAG) application that serves as an AI-powered academic tutor. The system ingests course materials, provides explanations, offers step-by-step solutions, recommends external resources, and generates interactive quizzes.
 
-## 📺 Demo Video
+## 📺 Demo Video 
 
 [![Academic Tutor Assistant Demo](https://kumartutor.com/wp-content/uploads/2024/09/10001.gif)](https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing)
 
@@ -17,6 +17,8 @@ An end-to-end Retrieval-Augmented Generation (RAG) application that serves as an
        width="600">
   Your browser does not support the video tag.
 </video>
+
+### Click here to watch the demo ▶️▶️
 
  ➡️▶️[Demo](https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing)
 ## 🎯 Problem Statement
