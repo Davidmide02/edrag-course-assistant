@@ -20,16 +20,17 @@ from llama_index.core import Settings
 import chromadb
 
 # Import our new modules
-from backend.youtube_search import YouTubeSearcher
-from backend.quiz_generator import QuizGenerator
-from backend.query_rewriter import QueryRewriter
-from backend.database import get_quizzes
-
+from src.youtube_search import YouTubeSearcher
+from src.quiz_generator import QuizGenerator
+from src.query_rewriter import QueryRewriter
+from src.database import get_quizzes
+from src.monitoring import Monitor
 class EnhancedQueryEngine:
     def __init__(self):
         # --- Configuration ---
         self.persist_dir = project_root / "storage" / "chroma_db"
-        
+                # Initialize monitoring
+        self.monitor = Monitor(enabled=True)
         # Check if vector store exists
         if not self.persist_dir.exists():
             raise FileNotFoundError("Vector store not found. Please run ingestion first.")
@@ -90,6 +91,10 @@ class EnhancedQueryEngine:
         # Get YouTube videos if requested or if confidence is low
         if get_videos or self._is_low_confidence(response):
             result["videos"] = self.youtube_searcher.search_educational_videos(question)
+
+         # Monitor the query
+        retrieval_score = max([node.score for node in result["source_nodes"]]) if result["source_nodes"] else 0
+        self.monitor.log_query(question, result["answer"], result["videos"], retrieval_score)    
         
         return result
     
@@ -101,13 +106,14 @@ class EnhancedQueryEngine:
             # If no context provided, retrieve some based on the topic
             retrieval_response = self.query_engine.query(topic)
             context = "\n".join([node.text for node in retrieval_response.source_nodes])
-        
+        self.monitor.log_quiz(topic, num_questions)
         return self.quiz_generator.generate_quiz(topic, context, num_questions)
-    
+
     def get_saved_quizzes(self, limit=10):
         """
         Retrieve saved quizzes from the database
         """
+        
         return get_quizzes(limit)
     
     def _is_low_confidence(self, response):
@@ -130,7 +136,7 @@ if __name__ == "__main__":
         engine = EnhancedQueryEngine()
         
         # Test query with YouTube recommendations
-        result = engine.query("Explain object-oriented programming", get_videos=True)
+        result = engine.query("Explain simultaneous equation", get_videos=True)
         print("Answer:", result["answer"])
         
         if result["videos"]:
@@ -139,7 +145,8 @@ if __name__ == "__main__":
                 print(f"- {video['title']} ({video['url']})")
         
         # Test quiz generation
-        quiz = engine.generate_quiz("Object-Oriented Programming")
+        quiz = engine.generate_quiz("simultaneous equation")
+
         if quiz:
             print(f"\nGenerated quiz: {quiz['quiz_title']}")
             for i, question in enumerate(quiz['questions']):

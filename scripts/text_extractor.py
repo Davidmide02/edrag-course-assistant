@@ -50,4 +50,4 @@ def extract_text_from_pdf(path: str) -> List[Tuple[str, Optional[int]]]:
     return pages
 
 # Example usage
-extract_text_from_pdf("./data/lecture1.pdf")
+extract_text_from_pdf("./data/simultaneous_equ.pdf")

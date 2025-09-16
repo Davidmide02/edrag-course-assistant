@@ -1,7 +1,7 @@
 # src/quiz_generator.py
 
 import json
-from backend.database import save_quiz
+from src.database import save_quiz
 
 class QuizGenerator:
     def __init__(self, llm):
@@ -13,7 +13,7 @@ class QuizGenerator:
         """
         prompt = f"""
         Based on the following context about {topic}, generate a {num_questions}-question multiple choice quiz.
-        Format your response as a JSON object with the following structure:
+        Format your response strictly as a JSON object with the following structure, no extra comments:
         {{
             "quiz_title": "Quiz about [topic]",
             "questions": [
@@ -34,8 +34,9 @@ class QuizGenerator:
             response = self.llm.complete(prompt)
             
             # Parse the JSON response
+            # print("llm text", response)
             quiz_data = json.loads(response.text)
-            
+            # print("quiz", quiz_data)
             # Save to database
             save_quiz(topic, quiz_data)
             

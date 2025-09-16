@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  academic-tutor:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./storage:/app/storage
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  data:
+  storage:

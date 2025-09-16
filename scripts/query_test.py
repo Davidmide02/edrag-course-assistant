@@ -42,9 +42,9 @@ def main():
 
     # Try these more specific queries
     test_queries = [
-    "Explain the main concepts covered in this lecture",
-    "What are the key learning objectives",
-    "existential quantification"
+    "Introduction",
+    "equations",
+    "simultaneous equations"
     ]
 
     for query in test_queries:
