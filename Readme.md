@@ -9,17 +9,18 @@ An end-to-end Retrieval-Augmented Generation (RAG) application that serves as an
 
 ## 📺 Demo Video
 
-[![Academic Tutor Assistant Demo](https://kumartutor.com/wp-content/uploads/2024/09/10001.gif)](./edrag_demo.mp4)
+[![Academic Tutor Assistant Demo](https://kumartutor.com/wp-content/uploads/2024/09/10001.gif)](https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing)
 
 <!-- <video src="./assets/edrag_demo.mp4" controls width="600">
   Your browser does not support the video tag.
 </video> -->
-<video src="https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing" 
+<!-- https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing -->
+<video src="https://drive.google.com/uc?export=download&id=1KTom4f7EW_YcQHZM4H53QFOR-M7didt1" 
        controls 
        width="600">
   Your browser does not support the video tag.
 </video>
-
+[![Academic Tutor Assistant Demo](https://drive.google.com/file/d/1KTom4f7EW_YcQHZM4H53QFOR-M7didt1/view?usp=sharing)](./edrag_demo.mp4)
 ## 🎯 Problem Statement
 
 Students often struggle to find relevant information in extensive course materials. This application solves this problem by:
