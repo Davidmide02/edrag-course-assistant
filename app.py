@@ -14,7 +14,6 @@ load_dotenv()
 project_root = Path(__file__).parent
 sys.path.append(str(project_root))
 
-
 print("project file", project_root)
 # Import our enhanced query engine
 from src.query_engine import EnhancedQueryEngine
@@ -25,6 +24,53 @@ st.set_page_config(
     page_icon="📚",
     layout="wide"
 )
+
+# Custom CSS for styling video cards
+st.markdown("""
+<style>
+.video-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+}
+.video-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.video-thumbnail {
+    width: 100%;
+    border-radius: 6px;
+}
+.video-title {
+    font-weight: bold;
+    margin: 8px 0;
+    color: #1f1f1f;
+}
+.video-channel {
+    color: #606060;
+    font-size: 0.9em;
+}
+</style>
+""", unsafe_allow_html=True)
+
+def display_video_card(video):
+    """Display a YouTube video as a styled card with thumbnail"""
+    html = f"""
+    <div class="video-card">
+        <a href="{video['url']}" target="_blank">
+            <img class="video-thumbnail" src="{video['thumbnail']}" alt="{video['title']}">
+        </a>
+        <div class="video-title">
+            <a href="{video['url']}" target="_blank" style="color: inherit; text-decoration: none;">
+                {video['title']}
+            </a>
+        </div>
+        <div class="video-channel">{video['channel']}</div>
+    </div>
+    """
+    return html
 
 # Initialize session state
 if 'engine' not in st.session_state:
@@ -116,7 +162,7 @@ for message in st.session_state.chat_history:
         if message.get("videos"):
             st.subheader("Recommended Videos")
             for video in message["videos"]:
-                st.markdown(f"[{video['title']} - {video['channel']}]({video['url']})")
+                st.markdown(display_video_card(video), unsafe_allow_html=True)
 
 # Chat input
 if prompt := st.chat_input("Ask a question about your course materials..."):
@@ -140,8 +186,11 @@ if prompt := st.chat_input("Ask a question about your course materials..."):
                 # Display YouTube videos if available
                 if result["videos"]:
                     st.subheader("Recommended Videos")
-                    for video in result["videos"]:
-                        st.markdown(f"[{video['title']} - {video['channel']}]({video['url']})")
+                    # Create columns for video cards (2 per row)
+                    cols = st.columns(2)
+                    for i, video in enumerate(result["videos"]):
+                        with cols[i % 2]:
+                            st.markdown(display_video_card(video), unsafe_allow_html=True)
                 
                 # Add to chat history
                 st.session_state.chat_history.append({
@@ -204,9 +253,10 @@ if 'current_quiz' in st.session_state:
     st.header("📝 Generated Quiz")
     quiz = st.session_state.current_quiz
     st.subheader(quiz["quiz_title"])
-    
+    # questions = quiz["questions"]["questions"]
+    # print("quiz_questions", questions)
     user_answers = []
-    for i, question in enumerate(quiz["questions"]):
+    for i, question in enumerate(quiz["questions"]["questions"]):
         st.markdown(f"**{i+1}. {question['question']}**")
         answer = st.radio(
             "Select your answer:",

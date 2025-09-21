@@ -88,6 +88,7 @@ academic-tutor-assistant/
   - OpenAI (https://platform.openai.com/)
   - YouTube Data API v3 (https://console.cloud.google.com/)
   - Weights & Biases (https://wandb.ai/) (optional)
+  - Dataset (https://www.mathcentre.ac.uk/resources/Engineering%20maths%20first%20aid%20kit/latexsource%20and%20diagrams/2_13.pdf)
 
 ### Quick Start with Docker (Recommended)
 
@@ -285,6 +286,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Groq for providing access to powerful LLM inference
 - LlamaIndex team for the excellent RAG framework
 - Streamlit for the intuitive web application framework
+- Mathcentre for the pdf used for training 
 
 ---
 
